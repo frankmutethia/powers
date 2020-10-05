@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:powers/screens/activity_model.dart';
 import 'package:powers/screens/destination_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:powers/screens/google_maps_page.dart';
 
 class DestinationScreen extends StatefulWidget {
   final Destination destination;
@@ -33,6 +35,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
               Container(
                 //design of the the boxshadow under the appbar
                 height: MediaQuery.of(context).size.width,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
                   boxShadow: [
@@ -128,10 +131,25 @@ class _DestinationScreenState extends State<DestinationScreen> {
                 // allows the positioning of the location text i.e Instabul, also remembering the widget initially created tends to lean on the left side
                 right: 20.0,
                 bottom: 20.0,
-                child: Icon(
-                  Icons.location_on,
-                  color: Colors.white70,
-                  size: 25.0,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) {
+                          return GoogleMapsPage(
+                            location: widget.destination.city, //replace with "nairobi national park"
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  label: Text("Map"),
+                  icon: Icon(
+                    Icons.location_on,
+                    color: Colors.white70,
+                    size: 25.0,
+                  ),
                 ),
               ),
             ],
